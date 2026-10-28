@@ -1,3 +1,4 @@
+import ProjectGallery from "@/components/project-gallery";
 import {
   ArrowDown,
   ArrowRight,
@@ -43,9 +44,11 @@ const projects = [
     type: "Food-sharing platform",
     date: "Sep 2026",
     description:
-      "Connects donors with people who need food. Recipients set their own search radius, receive a claim code by email, and collect food in person; only the donor can confirm a claim.",
+      "A community food-sharing platform connecting donors with recipients nearby. Donors post available food; recipients search within a chosen radius, claim a portion, and collect it using a six-digit pickup code.",
     stack: [
       "Go",
+      "React",
+      "TypeScript",
       "Microservices",
       "gRPC",
       "Echo",
@@ -54,6 +57,7 @@ const projects = [
       "Docker",
     ],
     link: "https://github.com/arjundwibastian/BagiPangan",
+    liveUrl: "https://bagipangan.my.id",
   },
 ];
 
@@ -190,7 +194,31 @@ export default function Home() {
             </p>
           </div>
           <div className="project-grid">
-            {projects.map((project) => (
+            {projects.filter((project) => project.id === "bagipangan").map((project) => (
+              <article className="featured-project" id={project.id} key={project.id}>
+                <div className="featured-intro">
+                  <div>
+                    <div className="kicker">FEATURED PROJECT / {project.number}</div>
+                    <h3>{project.title}</h3>
+                    <div className="project-type">{project.type} · {project.date}</div>
+                    <p>{project.description}</p>
+                  </div>
+                  <div className="featured-links">
+                    <a className="button button-gold" href={project.liveUrl} target="_blank" rel="noopener noreferrer">Visit live app <ArrowUpRight size={17} aria-hidden="true" /></a>
+                    <a className="text-link" href={project.link} target="_blank" rel="noopener noreferrer">View repository <ArrowUpRight size={17} aria-hidden="true" /></a>
+                    <span>Account required to explore donor and recipient features.</span>
+                  </div>
+                </div>
+                <div className="tags">{project.stack.map((item) => <span key={item}>{item}</span>)}</div>
+                <div className="project-roles">
+                  <div><h4>For donors</h4><p>My Listings · Create Listing · Verify Pickup · Profile</p></div>
+                  <div><h4>For recipients</h4><p>My Requests · Create Request · Browse Nearby · My Claims · Profile</p></div>
+                </div>
+                <ProjectGallery />
+                <p className="project-evidence-note">Captured from the app: listing creation, nearby search, a waiting claim, pickup confirmation, and request history.</p>
+              </article>
+            ))}
+            {projects.filter((project) => project.id !== "bagipangan").map((project) => (
               <article
                 className="project-card"
                 id={project.id}
